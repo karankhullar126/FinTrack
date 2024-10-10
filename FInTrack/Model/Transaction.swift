@@ -15,7 +15,7 @@ enum TransactionType: Int, CaseIterable {
     func getColour() -> Color {
         switch self {
         case .income:
-            return Color("Primary")
+            return Color.primary
         case .expense:
             return Color.red
         }

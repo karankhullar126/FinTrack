@@ -56,9 +56,9 @@ struct AddTransactionView: View {
             .navigationTitle(UIStrings.addTransaction)
             .navigationBarItems(
                 leading: Button(UIStrings.cancel, action: cancelAction)
-                    .foregroundColor(Color("Primary")),
+                    .foregroundColor(Color.primary),
                 trailing: Button(UIStrings.save, action: saveAction)
-                    .foregroundColor(enableSave ? Color("Primary") : Color.gray)
+                    .foregroundColor(enableSave ? Color.primary : Color.gray)
                     .disabled(!enableSave))
            
         }
@@ -92,7 +92,7 @@ struct TransactionTextField: View {
             if !inputText.isEmpty || isTextEditor {
                 Text(title)
                     .font(.system(size: 14))
-                    .foregroundColor(isFocused ? Color("Primary") : Color.gray)
+                    .foregroundColor(isFocused ? Color.primary : Color.gray)
             }
             ZStack(alignment: .bottom) {
                 if isTextEditor {
@@ -112,7 +112,7 @@ struct TransactionTextField: View {
                 
                 // Underline
                 Capsule()
-                    .fill(isFocused ? Color("Primary") : Color.gray) // Change color based on focus
+                    .fill(isFocused ? Color.primary : Color.gray) // Change color based on focus
                     .frame(height: 2) // Height of the underline
                     .padding(.top, 35) // Position it below the TextField
                     .animation(.easeInOut, value: isFocused) // Animate changes

@@ -31,7 +31,7 @@ struct MainLandingView: View {
                         Text(Date.monthString(from: selectedMonth) + " \(selectedYear)")
                             .foregroundColor(.black)
                         Image(systemName: "chevron.down.square.fill")
-                            .foregroundColor(Color("Primary"))
+                            .foregroundColor(Color.primary)
                     }.sheet(isPresented: $isDatePcikerPresented) {
                         MonthYearPickerView(isPresented: $isDatePcikerPresented, selectedMonth: $selectedMonth, selectedYear: $selectedYear)
                             .presentationDetents([.medium])
@@ -51,7 +51,7 @@ struct MainLandingView: View {
                 ToolbarItem {
                     Button(action: addItem) {
                         Image(systemName: "plus")
-                            .foregroundColor(Color("Primary"))
+                            .foregroundColor(Color.primary)
                     }
                     .fullScreenCover(isPresented: $showAddTransaction) {
                         AddTransactionView(showAddTransaction: $showAddTransaction)

@@ -39,7 +39,7 @@ struct WelcomeUI: View {
                         .foregroundColor(.black)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color("Primary"))
+                        .background(Color.primary)
                         .cornerRadius(8)
                 }
                 .frame(maxWidth: .infinity)
