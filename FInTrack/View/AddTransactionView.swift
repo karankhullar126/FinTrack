@@ -19,18 +19,18 @@ struct AddTransactionView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Picker("Select an option", selection: $transaction.type) {
+                Picker("", selection: $transaction.type) {
                     Text(UIStrings.expense).tag(TransactionType.expense.rawValue)
                     Text(UIStrings.income).tag(TransactionType.income.rawValue)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding()
+               
                 
-                TransactionTextField(title: "Title", inputText: $transaction.title)
+                TransactionTextField(title: UIStrings.title, inputText: $transaction.title)
                     .padding()
                     .onChange(of: transaction.title, validateTransaction)
                 
-                TransactionTextField(title: "Amount", inputText: $amountString)
+                TransactionTextField(title: UIStrings.amount, inputText: $amountString)
                     .padding()
                     .keyboardType(.decimalPad)
                     .onChange(of: amountString, {
@@ -42,27 +42,26 @@ struct AddTransactionView: View {
                         validateTransaction()
                     })
                 
-                DatePicker("Date", selection: $transaction.date, displayedComponents: .date)
+                DatePicker(UIStrings.date, selection: $transaction.date, displayedComponents: .date)
                     .padding()
                 
-                TransactionTextField(title: "Notes", inputText: $transaction.notes, isTextEditor: true)
+                TransactionTextField(title: UIStrings.notes, inputText: $transaction.notes, isTextEditor: true)
                     .padding()
                 
                 Spacer()
                 
             }
+            .padding()
             .frame(alignment: .top)
-            .navigationTitle("Add Transaction")
+            .navigationTitle(UIStrings.addTransaction)
             .navigationBarItems(
-                leading: Button("Cancel", action: cancelAction)
+                leading: Button(UIStrings.cancel, action: cancelAction)
                     .foregroundColor(Color("Primary")),
-                trailing: Button("Save", action: saveAction)
+                trailing: Button(UIStrings.save, action: saveAction)
                     .foregroundColor(enableSave ? Color("Primary") : Color.gray)
                     .disabled(!enableSave))
            
         }
-        
-        .padding()
     }
     
     func cancelAction() {
@@ -101,12 +100,14 @@ struct TransactionTextField: View {
                         .padding(.bottom,10)
                         .frame(maxHeight: 80)
                         .focused($isFocused)
+                        .font(.system(size: 14))
                 } else {
                     TextField(title, text: $inputText)
                         .padding(.bottom,10)
                         .focused($isFocused) // Bind the focus state
                         .textFieldStyle(PlainTextFieldStyle()) // Remove default styling
                         .background(Color.clear) // Clear background
+                        .font(.system(size: 14))
                 }
                 
                 // Underline

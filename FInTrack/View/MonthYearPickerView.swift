@@ -26,14 +26,14 @@ struct MonthYearPickerView: View {
         NavigationView {
             VStack {
                 HStack {
-                    Picker("Month", selection: $selectedMonthPicker) {
+                    Picker(UIStrings.month, selection: $selectedMonthPicker) {
                         ForEach(1..<13, id: \.self) { month in
                             Text(Date.monthString(from: month)).tag(month)
                         }
                     }
                     .pickerStyle(WheelPickerStyle())
                     
-                    Picker("Year", selection: $selectedYearPicker) {
+                    Picker(UIStrings.year, selection: $selectedYearPicker) {
                         ForEach((1900...2100), id: \.self) { year in
                             Text("\(year)").tag(year)
                         }
@@ -42,8 +42,8 @@ struct MonthYearPickerView: View {
                 }
                 .frame(maxWidth: .infinity)
             }
-            .navigationTitle("Select Month and Year")
-            .navigationBarItems(trailing: Button("Done") {
+            .navigationTitle(UIStrings.selectMonthYear)
+            .navigationBarItems(trailing: Button(UIStrings.month) {
                 selectedMonth = selectedMonthPicker
                 selectedYear = selectedYearPicker
                 isPresented = false // Dismiss the view

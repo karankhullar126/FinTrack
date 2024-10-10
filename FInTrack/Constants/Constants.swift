@@ -6,8 +6,15 @@
 //
 
 import Foundation
-
+import SwiftUI
 
 struct UserDefaultKeys {
     static let welcomeScreen = "welcomeScreen"
+}
+
+
+extension Color {
+    static var primary: Color {
+        Color("Primary")
+    }
 }

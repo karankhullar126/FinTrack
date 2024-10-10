@@ -66,18 +66,7 @@ struct MainLandingView: View {
     
     
     private func addItem() {
-        self.showAddTransaction = true
-//        let category = (try? modelContext.fetch(FetchDescriptor<Category>()).first) ?? Category(name: "Car")
-//        let transaction = Transaction(title: "New 100", amount: 200.5, notes: "Car petrol at sector 37", date: Date(), type: .income)
-//        
-//        modelContext.insert(category)
-//        modelContext.insert(transaction)
-//        do {
-//            try modelContext.save()
-//        } catch {
-//            print("Error", error.localizedDescription)
-//        }
-        
+        self.showAddTransaction = true        
     }
     
     private func changeMonth() {
