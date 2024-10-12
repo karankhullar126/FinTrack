@@ -14,6 +14,7 @@ struct AddTransactionView: View {
     @State var transaction = Transaction(title: "", amount: 0, notes: "", date: Date(), type: .expense)
     @State var showDatePickerView: Bool = false
     @State var enableSave: Bool = false
+    @State var selectedCategory: Category? = nil
     @Environment(\.modelContext) private var modelContext
     
     var body: some View {
@@ -42,13 +43,13 @@ struct AddTransactionView: View {
                             validateTransaction()
                         })
                     if transaction.transactionType == .expense {
-                        NavigationLink(destination: CategoryListView(selectedTransaction: $transaction)) {
+                        NavigationLink(destination: CategoryListView(selectedCategory: $selectedCategory)) {
                             HStack {
-                                Text("Category")
+                                Text(UIStrings.category)
                                     .font(.system(size: 14))
                                     .foregroundColor(Color.black)
                                 Spacer()
-                                Text(transaction.category?.name ?? "None")
+                                Text(selectedCategory?.name ?? "None")
                                     .font(.system(size: 14))
                                     .foregroundColor(Color
                                         .gray)
@@ -88,6 +89,9 @@ struct AddTransactionView: View {
     }
     
     func saveAction() {
+        if transaction.transactionType == .expense {
+            transaction.category = selectedCategory
+        }
         modelContext.insert(transaction)
         self.showAddTransaction = false
     }

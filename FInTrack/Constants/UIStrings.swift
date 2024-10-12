@@ -33,5 +33,8 @@ struct UIStrings {
     static let categoriesPlaceholder        = "No categories!!"
     static let addCategory                  = "Add a Category"
     static let category                     = "Category"
+    static let addCategoryTitle             = "Add Category"
+    static let categoryName                 = "Category Name"
+    static let categoryError                = "Category name already exist"
     
 }

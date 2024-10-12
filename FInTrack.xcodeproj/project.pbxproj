@@ -20,6 +20,7 @@
 		095F8C742CB2AA6A008187DA /* UIStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095F8C732CB2AA6A008187DA /* UIStrings.swift */; };
 		095F8C762CB2ABDE008187DA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095F8C752CB2ABDE008187DA /* Constants.swift */; };
 		099CBCE52CB83F750075B92F /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CBCE42CB83F750075B92F /* CategoryListView.swift */; };
+		099CBCE72CBA91590075B92F /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099CBCE62CBA91590075B92F /* AddCategoryView.swift */; };
 		09B45AE72CB41003003AF824 /* MainLandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B45AE62CB41003003AF824 /* MainLandingView.swift */; };
 		09B45AE92CB41DD1003AF824 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B45AE82CB41DD1003AF824 /* Transaction.swift */; };
 		09B45AEC2CB44E1E003AF824 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B45AEB2CB44E1E003AF824 /* TransactionCell.swift */; };
@@ -64,6 +65,7 @@
 		095F8C732CB2AA6A008187DA /* UIStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStrings.swift; sourceTree = "<group>"; };
 		095F8C752CB2ABDE008187DA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		099CBCE42CB83F750075B92F /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
+		099CBCE62CBA91590075B92F /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		09B45AE62CB41003003AF824 /* MainLandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLandingView.swift; sourceTree = "<group>"; };
 		09B45AE82CB41DD1003AF824 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		09B45AEB2CB44E1E003AF824 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				09CE53A72CB59F29006426C0 /* MonthYearPickerView.swift */,
 				09417D4B2CB67D5B00B1A671 /* AddTransactionView.swift */,
 				099CBCE42CB83F750075B92F /* CategoryListView.swift */,
+				099CBCE62CBA91590075B92F /* AddCategoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				09CE53A82CB59F29006426C0 /* MonthYearPickerView.swift in Sources */,
 				09417D4C2CB67D5B00B1A671 /* AddTransactionView.swift in Sources */,
 				09B45AE72CB41003003AF824 /* MainLandingView.swift in Sources */,
+				099CBCE72CBA91590075B92F /* AddCategoryView.swift in Sources */,
 				095F8C742CB2AA6A008187DA /* UIStrings.swift in Sources */,
 				09CE53A62CB569C1006426C0 /* MainLandingViewModel.swift in Sources */,
 				09B45AE92CB41DD1003AF824 /* Transaction.swift in Sources */,

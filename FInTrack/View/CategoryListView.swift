@@ -11,7 +11,8 @@ import SwiftData
 struct CategoryListView: View {
     
     @Query var categories: [Category]
-    @Binding var selectedTransaction: Transaction
+    @Binding var selectedCategory: Category?
+    @State var showAddCategoryView: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -34,14 +35,14 @@ struct CategoryListView: View {
                                     .font(.system(size: 14))
                                     .padding()
                                 Spacer()
-                                if selectedTransaction.category === category {
+                                if selectedCategory === category {
                                     Image(systemName: "checkmark")
                                         .foregroundColor(Color.primary)
                                 }
                             }
                             .background(Color(uiColor: UIColor.systemBackground))
                             .onTapGesture {
-                                selectedTransaction.category = category
+                                selectedCategory = category
                                 presentationMode.wrappedValue.dismiss()
                             }
                         }
@@ -58,10 +59,13 @@ struct CategoryListView: View {
                 }
             }
             .navigationTitle(UIStrings.category)
+            .sheet(isPresented: $showAddCategoryView) {
+                AddCategoryView(showAddCategory: $showAddCategoryView)
+            }
     }
     
     private func addItem() {
-        
+        showAddCategoryView = true
     }
 }
 
