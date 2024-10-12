@@ -15,6 +15,7 @@ struct AddTransactionView: View {
     @State var showDatePickerView: Bool = false
     @State var enableSave: Bool = false
     @State var selectedCategory: Category? = nil
+    @State var showCategory: Bool = true
     @Environment(\.modelContext) private var modelContext
     
     var body: some View {
@@ -25,6 +26,11 @@ struct AddTransactionView: View {
                     Text(UIStrings.income).tag(TransactionType.income.rawValue)
                 }
                 .pickerStyle(SegmentedPickerStyle())
+                .onChange(of: transaction.type) {
+                    withAnimation {
+                        showCategory = transaction.transactionType == .expense
+                    }
+                }
                
                 ScrollView {
                     TransactionTextField(title: UIStrings.title, inputText: $transaction.title)
@@ -42,7 +48,7 @@ struct AddTransactionView: View {
                             }
                             validateTransaction()
                         })
-                    if transaction.transactionType == .expense {
+                    if showCategory {
                         NavigationLink(destination: CategoryListView(selectedCategory: $selectedCategory)) {
                             HStack {
                                 Text(UIStrings.category)
@@ -106,13 +112,22 @@ struct TransactionTextField: View {
     
     var title: String
     @Binding var inputText: String
+    @State var showtitle: Bool
     var isTextEditor: Bool = false
     
     @FocusState private var isFocused: Bool
     
+    init(title: String, inputText: Binding<String>, isTextEditor: Bool = false) {
+        self.title = title
+        self._inputText = inputText
+        self.showtitle = isTextEditor
+        self.isTextEditor = isTextEditor
+        self.isFocused = isFocused
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
-            if !inputText.isEmpty || isTextEditor {
+            if showtitle {
                 Text(title)
                     .font(.system(size: 14))
                     .foregroundColor(isFocused ? Color.primary : Color.gray)
@@ -139,6 +154,10 @@ struct TransactionTextField: View {
                     .frame(height: 2) // Height of the underline
                     .padding(.top, 35) // Position it below the TextField
                     .animation(.easeInOut, value: isFocused) // Animate changes
+            }
+        }.onChange(of: inputText) {
+            withAnimation {
+                showtitle = !inputText.isEmpty || isTextEditor
             }
         }
     }
