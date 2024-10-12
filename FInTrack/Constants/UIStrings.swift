@@ -30,4 +30,8 @@ struct UIStrings {
     static let year                         = "Year"
     static let selectMonthYear              = "Select Month and Year"
     static let done                         = "Done"
+    static let categoriesPlaceholder        = "No categories!!"
+    static let addCategory                  = "Add a Category"
+    static let category                     = "Category"
+    
 }

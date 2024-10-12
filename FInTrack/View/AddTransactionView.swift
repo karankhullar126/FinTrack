@@ -25,30 +25,49 @@ struct AddTransactionView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                
-                
-                TransactionTextField(title: UIStrings.title, inputText: $transaction.title)
-                    .padding()
-                    .onChange(of: transaction.title, validateTransaction)
-                
-                TransactionTextField(title: UIStrings.amount, inputText: $amountString)
-                    .padding()
-                    .keyboardType(.decimalPad)
-                    .onChange(of: amountString, {
-                        if let value = Float(amountString) {
-                            transaction.amount = value
-                        } else if amountString.isEmpty {
-                            transaction.amount = 0.0 // Reset to zero if the field is empty
+                ScrollView {
+                    TransactionTextField(title: UIStrings.title, inputText: $transaction.title)
+                        .padding()
+                        .onChange(of: transaction.title, validateTransaction)
+                    
+                    TransactionTextField(title: UIStrings.amount, inputText: $amountString)
+                        .padding()
+                        .keyboardType(.decimalPad)
+                        .onChange(of: amountString, {
+                            if let value = Float(amountString) {
+                                transaction.amount = value
+                            } else if amountString.isEmpty {
+                                transaction.amount = 0.0 // Reset to zero if the field is empty
+                            }
+                            validateTransaction()
+                        })
+                    if transaction.transactionType == .expense {
+                        NavigationLink(destination: CategoryListView(selectedTransaction: $transaction)) {
+                            HStack {
+                                Text("Category")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Color.black)
+                                Spacer()
+                                Text(transaction.category?.name ?? "None")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Color
+                                        .gray)
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color.primary)
+                            }
+                            .padding()
                         }
-                        validateTransaction()
-                    })
-                
-                DatePicker(UIStrings.date, selection: $transaction.date, displayedComponents: .date)
-                    .padding()
-                
-                TransactionTextField(title: UIStrings.notes, inputText: $transaction.notes, isTextEditor: true)
-                    .padding()
-                
-                Spacer()
+                    }
+                    
+                    DatePicker(UIStrings.date, selection: $transaction.date, displayedComponents: .date)
+                        .padding()
+                        .font(.system(size: 14))
+                    
+                    TransactionTextField(title: UIStrings.notes, inputText: $transaction.notes, isTextEditor: true)
+                        .padding()
+                    
+                    Spacer()
+                }
                 
             }
             .padding()

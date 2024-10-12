@@ -43,7 +43,7 @@ struct MonthYearPickerView: View {
                 .frame(maxWidth: .infinity)
             }
             .navigationTitle(UIStrings.selectMonthYear)
-            .navigationBarItems(trailing: Button(UIStrings.month) {
+            .navigationBarItems(trailing: Button(UIStrings.done) {
                 selectedMonth = selectedMonthPicker
                 selectedYear = selectedYearPicker
                 isPresented = false // Dismiss the view
