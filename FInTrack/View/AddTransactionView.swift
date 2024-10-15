@@ -9,29 +9,49 @@ import SwiftUI
 
 struct AddTransactionView: View {
     
+    @Environment(\.dismiss) private var dismiss
     @Binding var showAddTransaction: Bool
-    @State var amountString: String = ""
-    @State var transaction = Transaction(title: "", amount: 0, notes: "", date: Date(), type: .expense)
-    @State var showDatePickerView: Bool = false
-    @State var enableSave: Bool = false
-    @State var selectedCategory: Category? = nil
-    @State var showCategory: Bool = true
+    @State var amountString: String
+    @State var transaction: Transaction
+    @State var enableSave: Bool
+    @State var selectedCategory: Category?
+    @State var showCategory: Bool
     @Environment(\.modelContext) private var modelContext
     
+    var isEditing: Bool
+    var transactionToEdit: Transaction?
+    
+    init(showAddTransaction: Binding<Bool>, isEditing: Bool = false, transactionToEdit: Transaction? = nil, enableSave: Bool = false, transaction: Transaction = Transaction()) {
+        self._showAddTransaction = showAddTransaction
+        self._amountString = State(initialValue: String(transactionToEdit?.amount ?? 0))
+        self._transaction = State(initialValue: transaction)
+        self._enableSave = State(initialValue: enableSave)
+        self._selectedCategory = State(initialValue: transactionToEdit?.category)
+        self._showCategory = State(initialValue: (transactionToEdit?.transactionType ?? .expense) == .expense)
+        self.isEditing = isEditing
+        self.transactionToEdit = transactionToEdit
+        
+        if let transactionToEdit = transactionToEdit {
+            self.transaction.updateRequiredfieldsForEdit(transactionToEdit)
+        }
+    }
+    
     var body: some View {
-        NavigationView {
             VStack {
-                Picker("", selection: $transaction.type) {
-                    Text(UIStrings.expense).tag(TransactionType.expense.rawValue)
-                    Text(UIStrings.income).tag(TransactionType.income.rawValue)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .onChange(of: transaction.type) {
-                    withAnimation {
-                        showCategory = transaction.transactionType == .expense
+                // Expense and income segment
+                if !isEditing {
+                    Picker("", selection: $transaction.type) {
+                        Text(UIStrings.expense).tag(TransactionType.expense.rawValue)
+                        Text(UIStrings.income).tag(TransactionType.income.rawValue)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .onChange(of: transaction.type) {
+                        withAnimation {
+                            showCategory = transaction.transactionType == .expense
+                        }
                     }
                 }
-               
+               // All the input fields
                 ScrollView {
                     TransactionTextField(title: UIStrings.title, inputText: $transaction.title)
                         .padding()
@@ -49,6 +69,7 @@ struct AddTransactionView: View {
                             validateTransaction()
                         })
                     if showCategory {
+                        // Category navigation
                         NavigationLink(destination: CategoryListView(selectedCategory: $selectedCategory)) {
                             HStack {
                                 Text(UIStrings.category)
@@ -74,20 +95,24 @@ struct AddTransactionView: View {
                         .padding()
                     
                     Spacer()
+                    
                 }
                 
             }
             .padding()
             .frame(alignment: .top)
-            .navigationTitle(UIStrings.addTransaction)
+            .navigationTitle(isEditing ? getEditTitle() : UIStrings.addTransaction)
             .navigationBarItems(
-                leading: Button(UIStrings.cancel, action: cancelAction)
+                leading: Button(isEditing ? "" : UIStrings.cancel, action: cancelAction)
                     .foregroundColor(Color.primary),
                 trailing: Button(UIStrings.save, action: saveAction)
                     .foregroundColor(enableSave ? Color.primary : Color.gray)
                     .disabled(!enableSave))
            
-        }
+    }
+    
+    func getEditTitle() -> String {
+        transactionToEdit?.transactionType == .expense ? UIStrings.editExpense : UIStrings.editIncome
     }
     
     func cancelAction() {
@@ -95,10 +120,16 @@ struct AddTransactionView: View {
     }
     
     func saveAction() {
-        if transaction.transactionType == .expense {
-            transaction.category = selectedCategory
+        if isEditing {
+            self.transactionToEdit?.updateRequiredfieldsForEdit(transaction)
+            self.transactionToEdit?.category = selectedCategory
+            dismiss()
+        } else {
+            if transaction.transactionType == .expense {
+                transaction.category = selectedCategory
+            }
+            modelContext.insert(transaction)
         }
-        modelContext.insert(transaction)
         self.showAddTransaction = false
     }
     
@@ -161,8 +192,4 @@ struct TransactionTextField: View {
             }
         }
     }
-}
-
-#Preview {
-    AddTransactionView(showAddTransaction: .constant(true))
 }

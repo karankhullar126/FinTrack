@@ -21,7 +21,7 @@ struct MainLandingView: View {
     
     
     var body: some View {
-        NavigationSplitView {
+        NavigationView {
             VStack {
                 // Month selector
                 HStack(alignment: .center) {
@@ -54,13 +54,13 @@ struct MainLandingView: View {
                             .foregroundColor(Color.primary)
                     }
                     .fullScreenCover(isPresented: $showAddTransaction) {
-                        AddTransactionView(showAddTransaction: $showAddTransaction)
+                        NavigationView {
+                            AddTransactionView(showAddTransaction: $showAddTransaction)
+                        }
                     }
                 }
             }
             .navigationTitle(UIStrings.welcomeTitle)
-        } detail: {
-            Text(UIStrings.selectTransaction)
         }
     }
     
@@ -160,7 +160,9 @@ struct TransactionList: View {
                 // List of transactions
                 List {
                     ForEach(transactions) { transaction in
-                        TransactionCell(transaction: transaction)
+                        NavigationLink(destination: AddTransactionView(showAddTransaction: .constant(true), isEditing: true, transactionToEdit: transaction)) {
+                            TransactionCell(transaction: transaction)
+                        }
                     }
                 }.listStyle(PlainListStyle())
             }

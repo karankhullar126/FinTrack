@@ -36,5 +36,7 @@ struct UIStrings {
     static let addCategoryTitle             = "Add Category"
     static let categoryName                 = "Category Name"
     static let categoryError                = "Category name already exist"
+    static let editExpense                  = "Edit Expense"
+    static let editIncome                   = "Edit Income"
     
 }

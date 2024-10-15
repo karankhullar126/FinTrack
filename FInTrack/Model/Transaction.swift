@@ -46,13 +46,19 @@ class Transaction {
     }
     
     
-    init(title: String, amount: Float, notes: String, date: Date, type: TransactionType, category: Category? = nil) {
-        self.title = title
-        self.amount = amount
-        self.notes = notes
-        self.date = date
-        self.type = type.rawValue
-        self.category = category
+    init() {
+        self.title = ""
+        self.amount = 0
+        self.notes = ""
+        self.date = Date()
+        self.type = TransactionType.expense.rawValue
+        self.category = nil
+    }
+    
+    func updateRequiredfieldsForEdit(_ transaction: Transaction) {
+        self.title = transaction.title
+        self.amount = transaction.amount
+        self.notes = transaction.notes
     }
 }
 
