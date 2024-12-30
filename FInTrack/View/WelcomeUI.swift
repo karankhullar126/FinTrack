@@ -16,7 +16,9 @@ struct WelcomeUI: View {
             VStack {
                 Image("Welcome")
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
+                    .frame(width: UIScreen.main.bounds.size.width - 40, height:450)
+                    .clipped()
                     .padding([.leading, .trailing, .top], 20)
                 //Title
                 Text(UIStrings.welcomeTitle)

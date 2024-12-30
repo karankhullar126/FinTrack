@@ -1,7 +1,6 @@
 {
-  "images" : [
+  "data" : [
     {
-      "filename" : "Welcom.jpg",
       "idiom" : "universal"
     }
   ],
